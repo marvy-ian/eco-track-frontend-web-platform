@@ -10,18 +10,6 @@ EcoTrack demonstrates modern client-side development through interactive interfa
 
 ---
 
-## 📸 Demo
-
-Add your project demonstration GIF here:
-
-demo.gif
-
-Example:
-
-![EcoTrack Demo](demo.gif)
-
----
-
 ## ✨ Features
 
 ### Carbon Footprint Audit
@@ -113,18 +101,9 @@ EcoTrack/
 ├── index.html
 ├── indexstyle.css
 ├── script.js
-├── demo.gif
-│
-├── assets/
-│   ├── images/
-│   └── icons/
-│
 ├── README.md
-├── CONTRIBUTING.md
-├── LICENSE.md
 ├── CHANGELOG.md
 ├── CODE_OF_CONDUCT.md
-└── .gitignore
 ```
 
 ---
