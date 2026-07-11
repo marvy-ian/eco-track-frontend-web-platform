@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack — Personal Carbon Footprint Tracker & Community Action Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="indexstyle.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar" aria-label="Main Navigation">
+        <div class="container nav-container">
+            <a href="#home" class="logo" aria-label="EcoTrack Home">
+                <i class="fa-solid fa-leaf"></i> EcoTrack
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle Navigation Menu" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#calculator">Calculator</a></li>
+                <li><a href="#tips">Tips</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-circles" aria-hidden="true">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Know Your Impact.<br>Change the World.</h1>
+                <p>Calculate your carbon footprint against local and global scales, discover practical optimizations, and take concrete climate action alongside a scaling global community.</p>
+                <button class="btn btn-primary" onclick="scrollToSection('calculator')">Start My Carbon Audit &nbsp;<i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            <div class="live-counter-box">
+                <h3>Total Tracked Emissions CO₂</h3>
+                <div class="counter-number" id="hero-counter" data-target="214950">0</div>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 8px; margin-bottom: 0;">Kilograms of carbon optimized dynamically this month.</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="calculator-section" id="calculator">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Your Emissions Footprint</h2>
+                    <p>Complete this quick, four-step situational assessment to capture an authoritative snapshot of your baseline carbon profile.</p>
+                </div>
+
+                <div class="calc-wrapper reveal">
+                    <div class="calc-progress-bar-container" aria-label="Form Progress">
+                        <div class="calc-progress-bar" id="calc-progress"></div>
+                    </div>
+                    <div class="calc-body">
+                        <form id="footprint-form" onsubmit="event.preventDefault();">
+                            
+                            <div class="calc-step active" id="step-1">
+                                <div class="step-title">
+                                    <i class="fa-solid fa-car"></i>
+                                    <h3>Step 1: Transport Dynamics</h3>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Primary transit modality:</span>
+                                    <div class="radio-grid">
+                                        <label class="radio-card">
+                                            <input type="radio" name="commute_mode" value="car" onclick="toggleConditionalInput(true)">
+                                            <div class="radio-content"><i class="fa-solid fa-car"></i><span>Private Car</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="commute_mode" value="motorcycle" onclick="toggleConditionalInput(true)">
+                                            <div class="radio-content"><i class="fa-solid fa-motorcycle"></i><span>Motorcycle</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="commute_mode" value="bus" onclick="toggleConditionalInput(false)">
+                                            <div class="radio-content"><i class="fa-solid fa-bus"></i><span>Public Bus</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="commute_mode" value="train" onclick="toggleConditionalInput(false)">
+                                            <div class="radio-content"><i class="fa-solid fa-train"></i><span>Rail/Train</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="commute_mode" value="walk" onclick="toggleConditionalInput(false)" checked>
+                                            <div class="radio-content"><i class="fa-solid fa-person-walking"></i><span>Walk / Bike</span></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group conditional-input" id="conditional-distance">
+                                    <label class="form-label" for="distance_km">Weekly travel distance:</label>
+                                    <div class="input-text-wrapper">
+                                        <input type="number" id="distance_km" min="0" value="0">
+                                        <span class="unit">km/wk</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Annual commercial flight frequency:</span>
+                                    <div class="radio-grid">
+                                        <label class="radio-card">
+                                            <input type="radio" name="flights" value="0" checked>
+                                            <div class="radio-content"><span>None (0)</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="flights" value="1.5">
+                                            <div class="radio-content"><span>1–2 flights</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="flights" value="4">
+                                            <div class="radio-content"><span>3–5 flights</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="flights" value="7">
+                                            <div class="radio-content"><span>6+ flights</span></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="calc-step" id="step-2">
+                                <div class="step-title">
+                                    <i class="fa-solid fa-house-chimney"></i>
+                                    <h3>Step 2: Home Infrastructure</h3>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Residential structure profile:</span>
+                                    <div class="radio-grid">
+                                        <label class="radio-card">
+                                            <input type="radio" name="home_type" value="apartment" checked>
+                                            <div class="radio-content"><i class="fa-solid fa-building"></i><span>Apartment/Condo</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="home_type" value="house">
+                                            <div class="radio-content"><i class="fa-solid fa-house"></i><span>Standalone House</span></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Average monthly electrical utility tier:</span>
+                                    <div class="radio-grid">
+                                        <label class="radio-card">
+                                            <input type="radio" name="electricity_bill" value="250" checked>
+                                            <div class="radio-content"><span>Under ₱500</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="electricity_bill" value="1000">
+                                            <div class="radio-content"><span>₱500–₱1,500</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="electricity_bill" value="2250">
+                                            <div class="radio-content"><span>₱1,500–₱3,000</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="electricity_bill" value="4000">
+                                            <div class="radio-content"><span>Over ₱3,000</span></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Air conditioning utilization:</span>
+                                    <div class="radio-grid">
+                                        <label class="radio-card">
+                                            <input type="radio" name="ac_use" value="no" checked>
+                                            <div class="radio-content"><span>Never / None</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="ac_use" value="sometimes">
+                                            <div class="radio-content"><span>Intermittent</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="ac_use" value="yes">
+                                            <div class="radio-content"><span>Regular / Daily</span></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="calc-step" id="step-3">
+                                <div class="step-title">
+                                    <i class="fa-solid fa-utensils"></i>
+                                    <h3>Step 3: Nutritional Blueprint</h3>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Dominant dietary model:</span>
+                                    <div class="radio-grid">
+                                        <label class="radio-card">
+                                            <input type="radio" name="diet" value="heavy_meat" checked>
+                                            <div class="radio-content"><i class="fa-solid fa-drumstick-bite"></i><span>Daily Meat</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="diet" value="light_meat">
+                                            <div class="radio-content"><i class="fa-solid fa-egg"></i><span>Occasional Meat</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="diet" value="pescatarian">
+                                            <div class="radio-content"><i class="fa-solid fa-fish"></i><span>Pescatarian</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="diet" value="vegetarian">
+                                            <div class="radio-content"><i class="fa-solid fa-seedling"></i><span>Vegetarian</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="diet" value="vegan">
+                                            <div class="radio-content"><i class="fa-solid fa-leaf"></i><span>Vegan</span></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Commercial dining out frequency:</span>
+                                    <div class="radio-grid">
+                                        <label class="radio-card">
+                                            <input type="radio" name="eat_out" value="0" checked>
+                                            <div class="radio-content"><span>Rarely</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="eat_out" value="2">
+                                            <div class="radio-content"><span>1–3x / week</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="eat_out" value="5">
+                                            <div class="radio-content"><span>4–6x / week</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="eat_out" value="7">
+                                            <div class="radio-content"><span>Daily</span></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="calc-step" id="step-4">
+                                <div class="step-title">
+                                    <i class="fa-solid fa-basket-shopping"></i>
+                                    <h3>Step 4: Consumption & Waste</h3>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Digital procurement/E-commerce cycle:</span>
+                                    <div class="radio-grid">
+                                        <label class="radio-card">
+                                            <input type="radio" name="shopping" value="rarely" checked>
+                                            <div class="radio-content"><span>Rarely</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="shopping" value="monthly">
+                                            <div class="radio-content"><span>Monthly</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="shopping" value="weekly">
+                                            <div class="radio-content"><span>Weekly</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="shopping" value="daily">
+                                            <div class="radio-content"><span>Daily</span></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Structured domestic material recycling:</span>
+                                    <div class="radio-grid">
+                                        <label class="radio-card">
+                                            <input type="radio" name="recycle" value="always" checked>
+                                            <div class="radio-content"><span>Always</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="recycle" value="sometimes">
+                                            <div class="radio-content"><span>Sometimes</span></div>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="recycle" value="never">
+                                            <div class="radio-content"><span>Never</span></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="calc-step" id="step-results">
+                                <div class="results-panel">
+                                    <div class="results-chart-zone">
+                                        <div class="chart-container">
+                                            <canvas id="resultsRadialChart" width="220" height="220"></canvas>
+                                            <div class="chart-overlay-text">
+                                                <div class="chart-number" id="computed-co2-val">0</div>
+                                                <div class="chart-unit">kg CO₂ / mo</div>
+                                            </div>
+                                        </div>
+                                        <div class="badge-rating id" id="footprint-rating-badge">Calculating</div>
+                                    </div>
+                                    <div class="comparison-container">
+                                        <div class="score-box">
+                                            <div>
+                                                <h4 style="font-family: var(--font-body); font-size: 1.05rem;">Your Structural Eco Score</h4>
+                                                <p style="font-size: 0.85rem; color: var(--text-muted);">Calibrated standard performance scale.</p>
+                                            </div>
+                                            <div class="score-value" id="eco-score-val">0/100</div>
+                                        </div>
+                                        <div class="comparison-bar-group">
+                                            <div class="comparison-label"><span>Your Emissions Baseline</span><span id="label-user-val">0 kg</span></div>
+                                            <div class="bar-bg"><div class="bar-fill bar-user" id="bar-user-fill" style="width: 0%"></div></div>
+                                        </div>
+                                        <div class="comparison-bar-group">
+                                            <div class="comparison-label"><span>Philippine National Baseline Average</span><span>150 kg</span></div>
+                                            <div class="bar-bg"><div class="bar-fill bar-ph" style="width: 35%"></div></div>
+                                        </div>
+                                        <div class="comparison-bar-group">
+                                            <div class="comparison-label"><span>Global Standard Average</span><span>400 kg</span></div>
+                                            <div class="bar-bg"><div class="bar-fill bar-global" style="width: 80%"></div></div>
+                                        </div>
+                                        <div class="results-actions">
+                                            <button class="btn btn-outline" onclick="copyEmissionsReport()"><i class="fa-solid fa-copy"></i> Copy Report</button>
+                                            <button class="btn btn-primary" onclick="scrollToSection('tips')">Optimize Profile &nbsp;<i class="fa-solid fa-arrow-down"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="calc-navigation" id="calc-nav-buttons">
+                                <button type="button" class="btn btn-outline" id="btn-prev" onclick="navigateStep(-1)" style="visibility: hidden;"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+                                <button type="button" class="btn btn-primary" id="btn-next" onclick="navigateStep(1)">Next Step &nbsp;<i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tips-section" id="tips">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Personalized Action Roadmap</h2>
+                    <p>Targeted adjustments filtered to mitigate the inefficiencies exposed within your carbon valuation infrastructure.</p>
+                </div>
+
+                <div class="filter-container reveal">
+                    <button class="filter-btn active" onclick="filterTips('all', this)">All Roadmap Focuses</button>
+                    <button class="filter-btn" onclick="filterTips('transport', this)"><i class="fa-solid fa-car"></i> Transport</button>
+                    <button class="filter-btn" onclick="filterTips('energy', this)"><i class="fa-solid fa-bolt"></i> Energy</button>
+                    <button class="filter-btn" onclick="filterTips('food', this)"><i class="fa-solid fa-utensils"></i> Food & Diet</button>
+                    <button class="filter-btn" onclick="filterTips('shopping', this)"><i class="fa-solid fa-basket-shopping"></i> Consumption</button>
+                </div>
+
+                <div class="tips-grid" id="tips-grid-container">
+                    <div class="tip-card reveal" data-category="transport">
+                        <div class="tip-header">
+                            <div class="tip-icon-box"><i class="fa-solid fa-train"></i></div>
+                            <span class="tip-tag tag-transport">Transport</span>
+                        </div>
+                        <h4>Transition to Intermodal Rail Systems</h4>
+                        <p>Swap out long-distance single-occupant automobile runs for the modern MRT/LRT grid systems within city limits.</p>
+                        <div class="tip-savings"><i class="fa-solid fa-leaf"></i> Saves ~45 kg CO₂ / mo</div>
+                    </div>
+                    <div class="tip-card reveal" data-category="energy">
+                        <div class="tip-header">
+                            <div class="tip-icon-box"><i class="fa-solid fa-temperature-arrow-up"></i></div>
+                            <span class="tip-tag tag-energy">Energy</span>
+                        </div>
+                        <h4>Calibrate HVAC Inverter Points</h4>
+                        <p>Set air conditioning microprocessors to standard 25°C baseline models supplemented by localized fans for air velocity.</p>
+                        <div class="tip-savings"><i class="fa-solid fa-leaf"></i> Saves ~35 kg CO₂ / mo</div>
+                    </div>
+                    <div class="tip-card reveal" data-category="food">
+                        <div class="tip-header">
+                            <div class="tip-icon-box"><i class="fa-solid fa-seedling"></i></div>
+                            <span class="tip-tag tag-food">Food & Diet</span>
+                        </div>
+                        <h4>Implement Plant-Based Rotation</h4>
+                        <p>Introduce designated vegetarian or vegan schedules weekly to decouple personal supply chains from mass-methane beef production.</p>
+                        <div class="tip-savings"><i class="fa-solid fa-leaf"></i> Saves ~50 kg CO₂ / mo</div>
+                    </div>
+                    <div class="tip-card reveal" data-category="shopping">
+                        <div class="tip-header">
+                            <div class="tip-icon-box"><i class="fa-solid fa-box"></i></div>
+                            <span class="tip-tag tag-shopping">Consumption</span>
+                        </div>
+                        <h4>Consolidate Logistics Deliveries</h4>
+                        <p>Batch online physical e-commerce purchases together into single standard delivery allocations to reduce secondary courier mileage.</p>
+                        <div class="tip-savings"><i class="fa-solid fa-leaf"></i> Saves ~15 kg CO₂ / mo</div>
+                    </div>
+                    <div class="tip-card reveal" data-category="transport">
+                        <div class="tip-header">
+                            <div class="tip-icon-box"><i class="fa-solid fa-bicycle"></i></div>
+                            <span class="tip-tag tag-transport">Transport</span>
+                        </div>
+                        <h4>Adopt Micro-Mobility Units</h4>
+                        <p>Deploy mechanical bicycles or lightweight electric scooters for internal neighborhood tasks under 3 kilometers total track.</p>
+                        <div class="tip-savings"><i class="fa-solid fa-leaf"></i> Saves ~22 kg CO₂ / mo</div>
+                    </div>
+                    <div class="tip-card reveal" data-category="energy">
+                        <div class="tip-header">
+                            <div class="tip-icon-box"><i class="fa-solid fa-plug"></i></div>
+                            <span class="tip-tag tag-energy">Energy</span>
+                        </div>
+                        <h4>Eliminate Phantom Load Bleed</h4>
+                        <p>Isolate modern multi-device desktop arrays, media boxes, and entertainment rigs with hardware smart switch strips to stop leakage.</p>
+                        <div class="tip-savings"><i class="fa-solid fa-leaf"></i> Saves ~12 kg CO₂ / mo</div>
+                    </div>
+                    <div class="tip-card reveal" data-category="food">
+                        <div class="tip-header">
+                            <div class="tip-icon-box"><i class="fa-solid fa-wheat-awn"></i></div>
+                            <span class="tip-tag tag-food">Food & Diet</span>
+                        </div>
+                        <h4>Source Agricultural Channels Locally</h4>
+                        <p>Route seasonal produce procurement through structural farmers markets directly to bypass extreme transnational transport logistics.</p>
+                        <div class="tip-savings"><i class="fa-solid fa-leaf"></i> Saves ~18 kg CO₂ / mo</div>
+                    </div>
+                    <div class="tip-card reveal" data-category="shopping">
+                        <div class="tip-header">
+                            <div class="tip-icon-box"><i class="fa-solid fa-arrows-spin"></i></div>
+                            <span class="tip-tag tag-shopping">Consumption</span>
+                        </div>
+                        <h4>Optimize Domestic Organic Waste</h4>
+                        <p>Establish baseline aerobic sorting units for everyday organic kitchen scraps to suppress direct anaerobic landfill decay metrics.</p>
+                        <div class="tip-savings"><i class="fa-solid fa-leaf"></i> Saves ~28 kg CO₂ / mo</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pledge-section" id="community">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>The Unified Accountability Ledger</h2>
+                    <p>Tangible, trackable dynamic verification of localized civil climate declarations committed by regional platform nodes.</p>
+                </div>
+
+                <div class="pledge-layout">
+                    <div class="pledge-form-container reveal">
+                        <h3>Publish Your Vow</h3>
+                        <p>Log your structural operational adjustment into the persistent community performance node dashboard below.</p>
+                        <form id="pledge-submission-form" onsubmit="handlePledgeSubmit(event)">
+                            <label for="pledge-name" class="form-label">Signatory Node Identity</label>
+                            <input type="text" id="pledge-name" class="input-field" placeholder="E.g., Maria Santos" required>
+
+                            <label for="pledge-selection" class="form-label">Strategic System Objective</label>
+                            <select id="pledge-selection" class="input-field" required>
+                                <option value="" disabled selected>Select structural focus track...</option>
+                                <option value="I will decouple personal daily transit from internal combustion engines.">Decouple transit from internal combustion units</option>
+                                <option value="I will constrain domestic air conditioning baselines to minimum 25°C thresholds.">Enforce 25°C baseline limits on building HVACs</option>
+                                <option value="I will convert structural dietary models to a fully vegetarian paradigm.">Convert diet patterns to vegetarian parameters</option>
+                                <option value="I will process, clean, and sort 100% of internal dry domestic waste streams.">Sort 100% of dry household packaging fractions</option>
+                            </select>
+                            
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Authorize System Vow</button>
+                        </form>
+                        <div class="pledge-count-banner">
+                            <i class="fa-solid fa-globe"></i>
+                            <span id="pledge-counter-text">0 actors have activated protocols</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="margin-bottom: 24px;" class="reveal">Live Verified Declarations</h3>
+                        <div class="pledge-wall" id="pledge-wall-output">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="visualizer-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Scaling Multiplier Simulator</h2>
+                    <p>Adjust the human index layer below to view mathematical projection offsets generated by coordinated group behavior adaptations.</p>
+                </div>
+
+                <div class="viz-container reveal">
+                    <div class="viz-display">
+                        <div class="viz-stat">
+                            <h4 id="viz-stat-people">100</h4>
+                            <p>Active Citizens</p>
+                        </div>
+                        <div class="viz-stat">
+                            <h4 id="viz-stat-co2">4.8</h4>
+                            <p>Tons CO₂ Saved / yr</p>
+                        </div>
+                        <div class="viz-stat">
+                            <h4 id="viz-stat-trees">218</h4>
+                            <p>Tree Absorption Equiv.</p>
+                        </div>
+                    </div>
+
+                    <div class="slider-wrapper">
+                        <div class="slider-label">
+                            <span>Community Density Scaling</span>
+                            <span id="slider-current-indicator" style="color: var(--primary-mid); font-weight:700;">100 human nodes</span>
+                        </div>
+                        <input type="range" id="viz-range-slider" class="real-slider" min="10" max="5000" value="100" step="10" oninput="updateVisualizerSimulation(this.value)">
+                    </div>
+
+                    <div class="tree-grid-container">
+                        <div class="tree-flex-box" id="tree-icon-bucket">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="reveal">
+                        <h3 style="font-size: 2.2rem; margin-bottom: 20px;">The EcoTrack Mission</h3>
+                        <p style="color: #CBD5E1; font-size: 1.1rem; margin-bottom: 24px;">We build tools to convert abstract atmospheric data trends into precise, actionable local decisions. Our open ledger architecture proves that systemic decarbonization is a product of clear metrics multiplied across communities.</p>
+                        <div class="about-stats">
+                            <div class="stat-card">
+                                <h4 class="counter-animate" data-target="1.2">0</h4>
+                                <p>Billion Tons Potential</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4 class="counter-animate" data-target="7.8">0</h4>
+                                <p>Billion People Ready</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4 class="counter-animate" data-target="2050">0</h4>
+                                <p>Net Zero Boundary</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal">
+                        <div class="newsletter-box">
+                            <h3 style="margin-bottom: 12px;">Subscribe to updates</h3>
+                            <p style="color: #CBD5E1; font-size: 0.95rem;">Receive direct technical briefs covering regional energy transformations and operational carbon workflows.</p>
+                            <form class="newsletter-form" id="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                                <input type="email" id="news-email" placeholder="Secure email address" required aria-label="Email Address">
+                                <button type="submit" class="btn btn-accent">Join Grid</button>
+                            </form>
+                            <div class="msg-success" id="news-success-msg"><i class="fa-solid fa-circle-check"></i> Email route securely logged. Welcome onboard.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <p>&copy; 2026 EcoTrack Project Platform. Open-source architectural system. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="#" aria-label="GitHub System Repository"><i class="fa-brands fa-github"></i></a>
+                <a href="#" aria-label="Twitter Climate Grid"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn Infrastructure Hub"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
