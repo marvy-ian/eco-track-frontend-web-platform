@@ -8,6 +8,33 @@ The project uses only frontend technologies and runs completely inside the brows
 
 EcoTrack demonstrates modern client-side development through interactive interfaces, real-time calculations, browser storage, and animated visual feedback.
 
+# Home Section
+
+<p align="center">
+  <img src="images/home-section.png" alt="Home Section" width="900">
+</p>
+
+# Calculator Section
+
+<p align="center">
+    <img src="images/calculator-section.png" alt="Calculator Section" width="900">
+</p>
+
+# Tips Section
+<p align="center">
+  <img src="images/tips-section.png" alt="Tips Section" width="900">
+</p>
+
+# Community Section
+<p align="center">
+  <img src="images/community-section.png" alt="Community Section" width="900">
+</p>
+
+# About Section
+<p align="center">
+  <img src="images/about-section.png" alt="About Section" width="900">
+</p>
+
 ---
 
 ## ✨ Features
